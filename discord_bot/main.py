@@ -15,8 +15,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-DISCORD_API_KEY =os.environ.get('DISCORD_API_KEY')
-WEATHER_API_KEY =os.environ.get('WEATHER_API_KEY')
+DISCORD_API_KEY =os.getenv('DISCORD_API_KEY')
+WEATHER_API_KEY =os.getenv('WEATHER_API_KEY')
 command_prefix = '!'
 client = discord.Client()
 bot = Bot(command_prefix=command_prefix)
@@ -106,7 +106,7 @@ async def on_message(message):
         if message.author != client.user and message.content.startswith('w.'):
             if len(message.content.replace('w.', '')) >= 1:
                 location = message.content.replace('w.', '').lower()
-                url = f'http://api.openweathermap.org/data/2.5/weather?q={location}&appid={api_key}&units=imperial'
+                url = f'http://api.openweathermap.org/data/2.5/weather?q={location}&appid={WEATHER_API_KEY}&units=imperial'
                 try:
                     data = parse_data(json.loads(requests.get(url).content)['main'])
                     await message.channel.send(embed=weather_message(data, location))
