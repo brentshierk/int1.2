@@ -4,13 +4,19 @@ from discord.voice_client import VoiceClient
 from discord.utils import get
 import requests
 import json
-import youtube_dl
+#import youtube_dl
 import time
 import asyncio
-import ffmpeg
+#import ffmpeg
 from weather import *
+import os
+from os.path import join, dirname
+from dotenv import load_dotenv
+load_dotenv()
 
-api_key = '29d8bac242774ad8978fcafdfdbd832b'
+
+DISCORD_API_KEY =os.environ.get('DISCORD_API_KEY')
+WEATHER_API_KEY =os.environ.get('WEATHER_API_KEY')
 command_prefix = '!'
 client = discord.Client()
 bot = Bot(command_prefix=command_prefix)
@@ -119,4 +125,4 @@ async def on_message(message):
 
 
 client.loop.create_task(update_stats())
-client.run('Nzk4MDk0ODg0MDkwNjc1MjEw.X_wByA.NObLz3fipCUkERK2nZ5I1pxPxH4')
+client.run(DISCORD_API_KEY)
